@@ -3,6 +3,13 @@ import { config } from "dotenv";
 import express from "express";
 import cors from "cors";
 import { errorMiddlewares } from "./middlewares/error.js";
+import movieListRoute from "./routes/movielistRoute.js"
+// import movieInsert from "./models/sazzad/insertMovie.js";
+// import movieInsert from "./models/sazzad/insertMovie.js";  
+
+
+
+
 // import adminRoute from "./routes/Fahim/adminPanelRoute.js";
 // import paymentRoutes from "./routes/Jahid/paymentRoute.js";
 // import collaborationRoutes from "./routes/Fahim/collaborationRoute.js";
@@ -27,7 +34,7 @@ export const app = express();
  * @function
  */
 config({
-  path: "./data/config.env",
+  path: "./config.env",
 });
 
 /**
@@ -57,6 +64,10 @@ app.use(
  * @function
  */
 app.use(cookieParser());
+
+// movieInsert();
+
+app.use("/movielist", movieListRoute);
 
 /**
 
