@@ -4,6 +4,8 @@ import express from "express";
 import cors from "cors";
 import { errorMiddlewares } from "./middlewares/error.js";
 import movieListRoute from "./routes/movielistRoute.js"
+import authRoutes from "./routes/authRoutes.js"
+import userRoutes from "./routes/userRoute.js"
 // import movieInsert from "./models/sazzad/insertMovie.js";
 // import movieInsert from "./models/sazzad/insertMovie.js";  
 
@@ -68,6 +70,9 @@ app.use(cookieParser());
 // movieInsert();
 
 app.use("/movielist", movieListRoute);
+
+app.use("/auth", authRoutes);
+app.use("/user", userRoutes);
 
 /**
 

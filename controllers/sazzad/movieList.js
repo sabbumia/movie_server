@@ -1,4 +1,4 @@
-import Movie from "../../models/sazzad/modelSc.js"; // Corrected import path
+import {Movie} from "../../models/sazzad/modelSc.js"; // Corrected import path
 
 export const movieLIST = {
   async getAllMovie(req, res) {

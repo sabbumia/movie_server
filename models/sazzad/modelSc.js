@@ -20,6 +20,6 @@ const movieSchema = new mongoose.Schema({
 });
 
 // Export the model
-const Movie = mongoose.model('Movie', movieSchema);
+export const Movie = mongoose.model('Movie', movieSchema);
 
-export default Movie; // Make sure you're using the default export to import it correctly
+
