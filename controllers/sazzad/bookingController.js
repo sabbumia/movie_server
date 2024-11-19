@@ -94,14 +94,8 @@ export const userBooking = async (req, res) => {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
-    // Ensure that the user_id and movie_id are valid ObjectIds
-    const userObjectId = user_id; // Use 'new' to instantiate ObjectId
-    // const userObjectId = new mongoose.Types.ObjectId(user_id); // Use 'new' to instantiate ObjectId
-    const movieObjectId = '673799b9da8ef4e6a1bf4c28'; // Use 'new' to instantiate ObjectId
-    // const movieObjectId = new mongoose.Types.ObjectId(movie_id); // Use 'new' to instantiate ObjectId
-
     // Validate user existence
-    const user = await User.findById(userObjectId);
+    const user = await User.findById(user_id);
     if (!user) {
       return res.status(404).json({ message: "User not found." });
     }
@@ -114,10 +108,10 @@ export const userBooking = async (req, res) => {
 
     // Create a new booking
     const newBooking = new Booking({
-      user_id: userObjectId, // Use ObjectId for user_id
+      user_id: user_id, // Use ObjectId for user_id
       movie_id: movie_id, // Use ObjectId for movie_id
-      show_time: new Date(`${date}T${show_time}`), // Ensure show_time is a Date object
-      date: new Date(date), // Ensure date is a Date object
+      show_time: show_time, // Ensure show_time is a Date object
+      show_date: date, // Ensure date is a Date object
       seats: seats || {}, // Ensure seats is an optional field
       total_price,
     });
@@ -164,9 +158,10 @@ export const getSeatAvailability = async (req, res) => {
     // Fetch the booked seats for the selected movie, date, and time
     const bookings = await Booking.find({
       movie_id: movieId,
-      date: new Date(date),
-      show_time: new Date(`${date}T${time}`)
+      show_date: date,
+      show_time: time,
     });
+    console.log("booking search" + bookings);
 
     // Array to keep track of the booked seats
     let bookedSeats = [];

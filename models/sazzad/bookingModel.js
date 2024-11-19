@@ -20,6 +20,10 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  show_date: {
+    type: String,
+    required: true
+  },
   seats: {
     type: [Number], // Array of numbers for seat numbers
     required: true
