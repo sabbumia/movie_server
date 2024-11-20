@@ -146,6 +146,49 @@ export const userBooking = async (req, res) => {
  * @param {Object} req - Request object.
  * @param {Object} res - Response object.
  */
+// export const getSeatAvailability = async (req, res) => {
+//   try {
+//     const { movieId, date, time } = req.query;
+
+//     // Validate required fields
+//     if (!movieId || !date || !time) {
+//       return res.status(400).json({ message: "Missing required fields" });
+//     }
+
+//     // Fetch the booked seats for the selected movie, date, and time
+//     const bookings = await Booking.find({
+//       movie_id: movieId,
+//       show_date: date,
+//       show_time: time,
+//     });
+//     console.log("booking search" + bookings);
+
+//     // Array to keep track of the booked seats
+//     let bookedSeats = [];
+
+//     bookings.forEach(booking => {
+//       // Assuming seats are stored as an array of seat numbers
+//       if (booking.seats) {
+//         bookedSeats.push(...Object.keys(booking.seats));
+//       }
+//     });
+
+//     // Generate seat status for 30 seats (adjust as needed)
+//     const seatsStatus = Array.from({ length: 30 }, (_, i) => {
+//       if (bookedSeats.includes(i.toString())) {
+//         return 'booked'; // Seat is booked
+//       }
+//       return 'available'; // Seat is available
+//     });
+
+//     res.status(200).json({ seats: seatsStatus });
+//   } catch (error) {
+//     res.status(500).json({ message: "Server error.", error: error.message });
+//   }
+// };
+
+
+
 export const getSeatAvailability = async (req, res) => {
   try {
     const { movieId, date, time } = req.query;
@@ -155,32 +198,28 @@ export const getSeatAvailability = async (req, res) => {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
-    // Fetch the booked seats for the selected movie, date, and time
+    // Fetch the bookings for the given movie, date, and time
     const bookings = await Booking.find({
       movie_id: movieId,
       show_date: date,
       show_time: time,
     });
-    console.log("booking search" + bookings);
 
     // Array to keep track of the booked seats
     let bookedSeats = [];
 
     bookings.forEach(booking => {
-      // Assuming seats are stored as an array of seat numbers
       if (booking.seats) {
-        bookedSeats.push(...Object.keys(booking.seats));
+        bookedSeats.push(...booking.seats); // Store all booked seat numbers
       }
     });
 
     // Generate seat status for 30 seats (adjust as needed)
     const seatsStatus = Array.from({ length: 30 }, (_, i) => {
-      if (bookedSeats.includes(i.toString())) {
-        return 'booked'; // Seat is booked
-      }
-      return 'available'; // Seat is available
+      return bookedSeats.includes(i) ? 'booked' : 'available';
     });
 
+    // Send seat status as the response
     res.status(200).json({ seats: seatsStatus });
   } catch (error) {
     res.status(500).json({ message: "Server error.", error: error.message });

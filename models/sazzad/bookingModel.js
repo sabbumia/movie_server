@@ -1,8 +1,4 @@
-import mongoose from "mongoose";
-
-// Assuming we already have User and Movie models defined
-import { User } from './userModel.js';  // Import User model
-import { Movie } from './modelSc.js';  // Import Movie model
+import mongoose from 'mongoose';
 
 // Define the Bookings Schema
 const bookingSchema = new mongoose.Schema({
@@ -33,7 +29,6 @@ const bookingSchema = new mongoose.Schema({
     required: true
   }
 });
-
 
 // Create the Booking model
 export const Booking = mongoose.model('Booking', bookingSchema);

@@ -10,7 +10,15 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   year: {
-    type: Date,
+    type: String,
+    required: true,
+  },
+  category: {
+    type: String,
+    required: true,
+  },
+  type: {
+    type: String,
     required: true,
   },
   imageLink: {
