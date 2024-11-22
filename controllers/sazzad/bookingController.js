@@ -123,6 +123,7 @@ export const userBooking = async (req, res) => {
       success: true,
       message: "Booking confirmed successfully.",
       booking: newBooking,
+      bookingId: newBooking._id,
     });
   } catch (error) {
     // Log the error to understand what went wrong
